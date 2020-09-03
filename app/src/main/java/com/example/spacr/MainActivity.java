@@ -28,6 +28,7 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     private void getApod(Calendar calendar) {
         displayLayout.setVisibility(View.VISIBLE);
         searchLayout.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
+
 
         ApiDisplayInterface apiDisplayInterface = ApiDisplayClient.getApiDisplayClient().create(ApiDisplayInterface.class);
 
@@ -176,19 +177,37 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if (response.body().getMedia_type().equals("image")) {
                         video.setVisibility(View.GONE);
                         image.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.VISIBLE);
                         Picasso
                                 .get()
                                 .load(response.body().getHdurl())
-                                .into(image);
+                                .into(image, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+
+                                    }
+                                });
                     } else if (response.body().getMedia_type().equals("video")) {
                         Log.d(TAG, "onResponse: " + response.body().getUrl());
-                        video.setVisibility(View.VISIBLE);
                         image.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
                         video.getSettings().setJavaScriptEnabled(true);
                         video.loadUrl(response.body().getUrl() + "?autoplay=1&vq=small");
-                        video.setWebChromeClient(new WebChromeClient());
+                        video.setWebViewClient(new WebViewClient() {
+
+                            @Override
+                            public void onPageFinished(WebView view, String url) {
+                                progressBar.setVisibility(View.GONE);
+                                video.setVisibility(View.VISIBLE);
+                            }
+                        });
                     }
-                    progressBar.setVisibility(View.GONE);
+
                 }
             }
 

@@ -40,6 +40,12 @@
                     android:layout_centerInParent="true"
                     android:id="@+id/detail_image"/>
 
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/videoLoader"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
@@ -47,21 +53,15 @@
                     android:visibility="gone"
                     android:layout_centerInParent="true">
 
-                    <ProgressBar
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:id="@+id/videoLoader"/>
-
-                    <VideoView
+                    <WebView
                         android:id="@+id/detail_video"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentBottom="true"
+                        android:fitsSystemWindows="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </VideoView>
+                        android:layout_height="match_parent"/>
 
                 </RelativeLayout>
 

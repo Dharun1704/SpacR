@@ -2,6 +2,7 @@ package com.example.spacr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -25,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.spacr.NASAapi.ApiSearchInterface;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -34,7 +38,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,7 +48,7 @@ public class SearchDetailActivity extends AppCompatActivity {
 
     private RelativeLayout relativeLayout;
     private ImageView image;
-    private VideoView video;
+    private WebView video;
     private ProgressBar progressBar;
     TextView title, photographer, id, keywords, date, desc;
 
@@ -88,7 +91,17 @@ public class SearchDetailActivity extends AppCompatActivity {
             Picasso
                     .get()
                     .load(imgUrl)
-                    .into(image);
+                    .into(image, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+                    });
         }
         else if (mediaType.equals("video")) {
             assert imgUrl != null;
@@ -115,24 +128,20 @@ public class SearchDetailActivity extends AppCompatActivity {
         desc.setText(mDesc);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void getVideoUrl(String url) {
         String[] parts = url.split("~");
         parts[1] = "mobile.mp4";
         videoPath = parts[0] + "~" + parts[1];
-        relativeLayout.setVisibility(View.VISIBLE);
+
         image.setVisibility(View.GONE);
-        Uri uri = Uri.parse(videoPath);
-        video.setVideoURI(uri);
-
-        MediaController mediaController = new MediaController(SearchDetailActivity.this);
-        video.setMediaController(mediaController);
-        mediaController.setAnchorView(video);
-
-        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        video.getSettings().setJavaScriptEnabled(true);
+        video.loadUrl(videoPath);
+        video.setWebViewClient(new WebViewClient() {
             @Override
-            public void onPrepared(MediaPlayer mp) {
-                video.start();
+            public void onPageFinished(WebView view, String url) {
                 progressBar.setVisibility(View.GONE);
+                relativeLayout.setVisibility(View.VISIBLE);
             }
         });
     }
