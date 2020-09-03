@@ -56,7 +56,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     .centerCrop()
                     .into(holder.searchImage);
         }
-        else if (media.equals("video") && item.getLinks() != null) {
+        if (media.equals("video") && item.getLinks() != null) {
             holder.playButton.setVisibility(View.VISIBLE);
                 Picasso
                         .get()
@@ -65,6 +65,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                         .centerCrop()
                         .into(holder.searchImage);
         }
+
     }
 
     @Override

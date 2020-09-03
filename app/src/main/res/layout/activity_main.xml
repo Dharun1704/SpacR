@@ -90,11 +90,11 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:visibility="gone"
-                android:scaleType="fitXY"
-                android:background="#FFF"
+                android:adjustViewBounds="true"
+                android:elevation="5dp"
                 android:id="@+id/space_image"/>
 
             <WebView

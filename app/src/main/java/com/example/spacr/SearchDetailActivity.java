@@ -98,12 +98,18 @@ public class SearchDetailActivity extends AppCompatActivity {
         photographer.setText("Photographed by: " + mPhoGrp);
         id.setText("NASA ID: " + mId);
         String keyword = "";
-        for (int i = 0; i < mKeywords.size(); i++) {
-            if (i != mKeywords.size() - 1)
-                keyword += mKeywords.get(i) + ", ";
-            else
-                keyword += mKeywords.get(i);
+        if (mKeywords == null) {
+            keyword = "null";
         }
+        else {
+            for (int i = 0; i < mKeywords.size(); i++) {
+                if (i != mKeywords.size() - 1)
+                    keyword += mKeywords.get(i) + ", ";
+                else
+                    keyword += mKeywords.get(i);
+            }
+        }
+
         keywords.setText("Keywords: " + keyword);
         date.setText("Created at: " + mDate);
         desc.setText(mDesc);

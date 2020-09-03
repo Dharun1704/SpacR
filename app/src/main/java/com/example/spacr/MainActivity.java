@@ -218,7 +218,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 if (response.isSuccessful() && response.body() != null) {
                     String number = "Results: " + response.body().getCollection().getItems().size();
                     resultsNo.setText(number);
-                    searchItem = response.body().getCollection().getItems();
+                    for (int i = 0; i < response.body().getCollection().getItems().size(); i++) {
+                        if (!response.body().getCollection().getItems().get(i).getData().get(0)
+                                .getMedia_type().equals("audio")) {
+                            searchItem.add(response.body().getCollection().getItems().get(i));
+                        }
+                    }
 
                     recyclerLoader.setVisibility(View.GONE);
                     resultsNo.setVisibility(View.VISIBLE);
@@ -232,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         @Override
                         public void onItemClick(int position) {
                             Item item = searchItem.get(position);
+                            assert item != null;
                             Date date = item.getData().get(0).getDate_created();
                             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
                             String formattedDate = dateFormat.format(date);
