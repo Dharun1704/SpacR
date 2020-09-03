@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_image"
+    tools:context=".SearchDetailActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:textSize="25sp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="#fff"
+                android:id="@+id/item_title"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_title"
+                android:id="@+id/photoVideoLayout">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:scaleType="fitXY"
+                    android:background="#FFF"
+                    android:padding="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/detail_image"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:id="@+id/videoLayout"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true">
+
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/videoLoader"/>
+
+                    <VideoView
+                        android:id="@+id/detail_video"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                    </VideoView>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_id"
+                android:layout_below="@id/photoVideoLayout"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:text="NASA ID:"
+                android:fontFamily="@font/nunito"
+                android:textSize="16sp"
+                android:textColor="#FFF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_photographer"
+                android:layout_below="@id/item_id"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:text="Photographed by:"
+                android:fontFamily="@font/nunito"
+                android:textSize="16sp"
+                android:textColor="#FFF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_keywords"
+                android:layout_below="@id/item_photographer"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:text="Keywords:"
+                android:fontFamily="@font/nunito"
+                android:textSize="16sp"
+                android:textColor="#FFF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_dateCreated"
+                android:layout_below="@id/item_keywords"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:text="Date created:"
+                android:fontFamily="@font/nunito"
+                android:textSize="16sp"
+                android:textColor="#FFF"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#B6B6B6"
+                android:id="@+id/view"
+                android:layout_below="@id/item_dateCreated"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_desc"
+                android:layout_below="@id/view"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:text="Keywords:"
+                android:fontFamily="@font/nunito"
+                android:textSize="16sp"
+                android:textColor="#FFF"/>
+
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>
