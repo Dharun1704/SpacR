@@ -116,7 +116,6 @@ public class SearchDetailActivity extends AppCompatActivity {
     }
 
     private void getVideoUrl(String url) {
-        progressBar.setVisibility(View.VISIBLE);
         String[] parts = url.split("~");
         parts[1] = "mobile.mp4";
         videoPath = parts[0] + "~" + parts[1];
