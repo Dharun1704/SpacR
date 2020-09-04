@@ -81,12 +81,18 @@
             android:layout_marginBottom="25dp"
             android:layout_marginTop="30dp">
 
-            <ProgressBar
-                android:layout_width="match_parent"
+            <me.itangqi.waveloadingview.WaveLoadingView
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:id="@+id/waveLoader"
+                app:wlv_borderColor="#621940"
                 android:layout_centerInParent="true"
-                android:visibility="gone"
-                android:id="@+id/image_loader"/>
+                app:wlv_borderWidth="3dp"
+                app:wlv_shapeType="circle"
+                app:wlv_round_rectangle="true"
+                app:wlv_triangle_direction="east"
+                app:wlv_waveAmplitude="70"
+                app:wlv_waveColor="#621940"/>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -126,11 +132,20 @@
             android:text="Go to APOD"
             android:textAllCaps="false"/>
 
-        <ProgressBar
-            android:layout_width="match_parent"
+        <me.itangqi.waveloadingview.WaveLoadingView
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:id="@+id/recyclerWaveLoader"
+            app:wlv_borderColor="#621940"
+            app:wlv_borderWidth="3dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:id="@+id/recyclerLoader"/>
+            app:wlv_shapeType="circle"
+            app:wlv_round_rectangle="true"
+            app:wlv_triangle_direction="east"
+            app:wlv_waveAmplitude="70"
+            android:visibility="gone"
+            app:wlv_waveColor="#621940"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -37,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import me.itangqi.waveloadingview.WaveLoadingView;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -49,7 +50,7 @@ public class SearchDetailActivity extends AppCompatActivity {
     private RelativeLayout relativeLayout;
     private ImageView image;
     private WebView video;
-    private ProgressBar progressBar;
+    private WaveLoadingView loadingView;
     TextView title, photographer, id, keywords, date, desc;
 
     private String videoPath;
@@ -72,7 +73,7 @@ public class SearchDetailActivity extends AppCompatActivity {
         keywords = findViewById(R.id.item_keywords);
         date = findViewById(R.id.item_dateCreated);
         desc = findViewById(R.id.item_desc);
-        progressBar = findViewById(R.id.videoLoader);
+        loadingView = findViewById(R.id.detailWaveLoader);
 
         Intent intent = getIntent();
         String mediaType = intent.getStringExtra("media");
@@ -94,7 +95,7 @@ public class SearchDetailActivity extends AppCompatActivity {
                     .into(image, new Callback() {
                         @Override
                         public void onSuccess() {
-                            progressBar.setVisibility(View.GONE);
+                            loadingView.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -140,7 +141,7 @@ public class SearchDetailActivity extends AppCompatActivity {
         video.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                progressBar.setVisibility(View.GONE);
+                loadingView.setVisibility(View.GONE);
                 relativeLayout.setVisibility(View.VISIBLE);
             }
         });

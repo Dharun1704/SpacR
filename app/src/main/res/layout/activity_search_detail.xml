@@ -40,11 +40,20 @@
                     android:layout_centerInParent="true"
                     android:id="@+id/detail_image"/>
 
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <me.itangqi.waveloadingview.WaveLoadingView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:id="@+id/detailWaveLoader"
+                    app:wlv_borderColor="#621940"
+                    app:wlv_borderWidth="3dp"
+                    android:layout_marginTop="30dp"
                     android:layout_centerInParent="true"
-                    android:id="@+id/videoLoader"/>
+                    app:wlv_shapeType="circle"
+                    app:wlv_round_rectangle="true"
+                    app:wlv_triangle_direction="east"
+                    app:wlv_waveAmplitude="70"
+                    app:wlv_waveColor="#621940"/>
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"

@@ -54,6 +54,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
+import me.itangqi.waveloadingview.WaveLoadingView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     Button chooseDate, goToAPOD;
     private TextView date, resultsNo;
-    private ProgressBar progressBar, recyclerLoader;
+    private WaveLoadingView loadingView, recyclerWaveLoader;
     private ImageView image;
     private WebView video;
     private MaterialSearchBar searchBar;
@@ -94,11 +95,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         chooseDate = findViewById(R.id.chooseDate);
         image = findViewById(R.id.space_image);
         video = findViewById(R.id.space_video);
-        progressBar = findViewById(R.id.image_loader);
+        loadingView = findViewById(R.id.waveLoader);
+        loadingView.setProgressValue(50);
         searchBar = findViewById(R.id.searchBar);
         resultsNo = findViewById(R.id.searchResultsNo);
         goToAPOD = findViewById(R.id.goToAPOD);
-        recyclerLoader = findViewById(R.id.recyclerLoader);
+        recyclerWaveLoader = findViewById(R.id.recyclerWaveLoader);
 
         recyclerView = findViewById(R.id.searchRecyclerView);
         layoutManager = new GridLayoutManager(this, 2);
@@ -177,14 +179,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     if (response.body().getMedia_type().equals("image")) {
                         video.setVisibility(View.GONE);
                         image.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.VISIBLE);
+                        loadingView.setVisibility(View.VISIBLE);
                         Picasso
                                 .get()
                                 .load(response.body().getHdurl())
                                 .into(image, new com.squareup.picasso.Callback() {
                                     @Override
                                     public void onSuccess() {
-                                        progressBar.setVisibility(View.GONE);
+                                        loadingView.setVisibility(View.GONE);
                                     }
 
                                     @Override
@@ -195,14 +197,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     } else if (response.body().getMedia_type().equals("video")) {
                         Log.d(TAG, "onResponse: " + response.body().getUrl());
                         image.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.VISIBLE);
+                        loadingView.setVisibility(View.VISIBLE);
                         video.getSettings().setJavaScriptEnabled(true);
                         video.loadUrl(response.body().getUrl() + "?autoplay=1&vq=small");
                         video.setWebViewClient(new WebViewClient() {
 
                             @Override
                             public void onPageFinished(WebView view, String url) {
-                                progressBar.setVisibility(View.GONE);
+                                loadingView.setVisibility(View.GONE);
                                 video.setVisibility(View.VISIBLE);
                             }
                         });
@@ -227,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
         resultsNo.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
-        recyclerLoader.setVisibility(View.VISIBLE);
+        recyclerWaveLoader.setVisibility(View.VISIBLE);
 
         ApiSearchInterface apiSearchInterface = ApiSearchClient.getApiSearchClient().create(ApiSearchInterface.class);
         Call<SearchResult> call = apiSearchInterface.getSearchResults(query);
@@ -244,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                         }
                     }
 
-                    recyclerLoader.setVisibility(View.GONE);
+                    recyclerWaveLoader.setVisibility(View.GONE);
                     resultsNo.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
                     adapter = null;
@@ -316,7 +318,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             public void onSearchConfirmed(CharSequence text) {
                 if (text.length() > 2) {
                     getSearchResults(text.toString());
-                    searchBar.closeSearch();
                 }
                 else
                     Toast.makeText(MainActivity.this, "Length of search word must be greater than 2",
