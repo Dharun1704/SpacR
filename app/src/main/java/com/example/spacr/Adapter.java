@@ -86,9 +86,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             searchImage = itemView.findViewById(R.id.search_image);
             playButton = itemView.findViewById(R.id.video_playImg);
             title = itemView.findViewById(R.id.display_title);
-            title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-            title.setSelected(true);
-            title.setMarqueeRepeatLimit(4);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

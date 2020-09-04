@@ -318,6 +318,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             public void onSearchConfirmed(CharSequence text) {
                 if (text.length() > 2) {
                     getSearchResults(text.toString());
+                    searchBar.closeSearch();
+                    searchBar.setPlaceHolder(text.toString());
                 }
                 else
                     Toast.makeText(MainActivity.this, "Length of search word must be greater than 2",
