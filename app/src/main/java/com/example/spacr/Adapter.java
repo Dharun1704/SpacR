@@ -2,11 +2,13 @@ package com.example.spacr;
 
 import android.content.Context;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +47,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = searchItems.get(position);
-
+        holder.title.setText(item.getData().get(0).getTitle());
         String media = item.getData().get(0).getMedia_type();
         if (media.equals("image") && item.getLinks() != null) {
             holder.playButton.setVisibility(View.GONE);
@@ -76,12 +78,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView searchImage, playButton;
+        TextView title;
 
         public ViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
 
             searchImage = itemView.findViewById(R.id.search_image);
             playButton = itemView.findViewById(R.id.video_playImg);
+            title = itemView.findViewById(R.id.display_title);
+            title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+            title.setSelected(true);
+            title.setMarqueeRepeatLimit(4);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

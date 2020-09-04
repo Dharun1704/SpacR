@@ -27,6 +27,16 @@
             android:id="@+id/video_playImg"
             android:src="@drawable/ic_play_circle" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/display_title"
+            android:textColor="#006699"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:fontFamily="@font/nunito"
+            android:layout_alignTop="@+id/search_image"/>
+
     </RelativeLayout>
 
 
