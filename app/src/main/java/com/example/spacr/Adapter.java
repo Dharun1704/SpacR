@@ -47,7 +47,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = searchItems.get(position);
-        holder.title.setText(item.getData().get(0).getTitle());
+        String title = item.getData().get(0).getTitle();
+        String mTitle = "";
+        if (title.length() > 30) {
+            for (int i = 0; i < 27; i++) {
+                mTitle += title.charAt(i);
+            }
+            mTitle = mTitle + "...";
+            holder.title.setText(mTitle);
+        }
+        else
+            holder.title.setText(title);
         String media = item.getData().get(0).getMedia_type();
         if (media.equals("image") && item.getLinks() != null) {
             holder.playButton.setVisibility(View.GONE);
